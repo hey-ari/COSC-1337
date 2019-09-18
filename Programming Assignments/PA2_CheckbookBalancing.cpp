@@ -2,7 +2,7 @@
 //  Account Balancing Program
 //  Programmer: Ariadna Ayala
 //  Completed: 09/13/2019
-//  Status: Completed
+//  Status: Completed 
 //
 //  This program collects user's beginning balance and completes following transactions:
 //  process checks(C), process deposots(D), and end of month processing and exit (E). The program
