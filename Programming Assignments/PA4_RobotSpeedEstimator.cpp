@@ -1,11 +1,15 @@
+  
+//*************************************************************************
+//  Robot Speed Estimator
+//  Programmer: Ariadna Ayala
+//  Completed: 09/22/2019
+//  Status: Completed
 //
-//  main.cpp
-//  Program4
-//
-//  Created by Ariadna on 9/27/19.
-//  Copyright © 2019 Ariadna. All rights reserved.
-//
+//  This ia a revised version of Checkbook Balancing program (PA2). It performs the same operations
+//  as its prototype. The program has been restructured and additional service fees were added.
+//*************************************************************************
 
+#include <iomanip>
 #include <iostream>
 
 using namespace std;
