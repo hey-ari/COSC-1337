@@ -2,11 +2,20 @@
 //*************************************************************************
 //  Robot Speed Estimator
 //  Programmer: Ariadna Ayala
-//  Completed: 09/22/2019
-//  Status: Completed
+//  Completed: 09/28/2019
+//  Status: Incomplete.
 //
-//  This ia a revised version of Checkbook Balancing program (PA2). It performs the same operations
-//  as its prototype. The program has been restructured and additional service fees were added.
+//  This program collects user input for gear motor speed and wheel diamter and calculates estimated
+//  speed of a robot based on the input. 
+//*************************************************************************
+//
+//
+//
+// To Fix:
+// 1) Return to initial input prompt (RPM) in case of error;
+// 2) enable exit option;
+// 3) add speed in inched per minute (???);
+// 4) disclose input restrictions;
 //*************************************************************************
 
 #include <iomanip>
@@ -20,57 +29,96 @@ private:
     float gearRPM = 74.0;                       // Gear motor speed in rev/min
     float wheelDiameter = 1.0;                  // Wheel diameter on inches
     
-//******************************************************************************
+
 public:
-    void setRPM (double newRPM)
+    const double PI = 3.14159;
+    
+    
+    void setRPM (double);
+    void setDiameter (double);
+    double getRPM();
+    double getDiameter();
+    double getSpeed();
+
+};
+//*********************************************************************************
+
+void Robot::setRPM (double newRPM)
+{
+    gearRPM = newRPM;
+}
+
+void Robot::setDiameter(double newDiameter)
+{
+    wheelDiameter = newDiameter;
+}
+
+double Robot::getRPM()
+{
+    return gearRPM;
+}
+double Robot::getDiameter()
+{
+    return wheelDiameter;
+}
+
+// Function returns calculated speed.
+double Robot::getSpeed()
+{
+    return (gearRPM * wheelDiameter * PI) / 12;
+}
+
+
+int main()
+{
+    Robot userDefined;
+    double userRPM,
+           userDiameter;
+    char again;
+    
+    while (again != 'e' || again != 'E')
     {
         cout << "Enter new RPM value: ";
-        cin >> newRPM;
-        if (newRPM == 74 || newRPM == 190 || newRPM == 265)
+        cin >> userRPM;
+    
+        if (userRPM == 74 || userRPM == 190 || userRPM == 265)
         {
-            gearRPM = newRPM;
+            userDefined.setRPM(userRPM);
         }
         else
         {
             cout << "ERROR! Invalid speed value. Please, try again." << endl;
-            cout << "Enter new RPM value: ";
-            cin >> newRPM;
         }
-    }
-//********************************************************************************
-    
-    
-    void setDiameter (double newDiameter)
-    {
-        cout << "Enter new wheel diameter: ";
-        cin >> newDiameter;
-        if (newDiameter >= 1 && newDiameter <= 6)
+            cout << "Enter new wheel diameter: ";
+        cin >> userDiameter;
+        if (userDiameter >= 1 || userDiameter <= 6 )
         {
-            wheelDiameter = newDiameter;
+            userDefined.setDiameter(userDiameter);
         }
         else
         {
-            cout << "ERROR! Invalid wheel diameter value. Please, try again."<< endl;
-            cout << "Enter new wheel diameter: ";
-            cin >> newDiameter;
+            cout << "ERROR! Invalid wheel diameter value. Please, try again." << endl;
+
         }
-    }
-//************************************************************************************
-    double getRPM()
-    {
-        return gearRPM;
-    }
-    double getDiameter()
-    {
-        return wheelDiameter;
-    }
-    double getSpeed (double robotSpeed)
-    {
-        return robotSpeed;
-    }
-};
- int main()
-{
     
+        cout << "\nHere is the data you intered: " << endl;
+        cout << "Speed of the gear motor: " << userDefined.getRPM() <<
+                " RPM;" << endl;
+        cout << "Wheel diameter: " << userDefined.getDiameter() <<
+        " inch(es);" << endl;
+        cout << "Estimated speed of the robot is: " << userDefined.getSpeed() <<
+                " feet per minute."<< endl;
+        cout << "Enter any key to try again, e to exit: ";
+    }
+
     return 0;
+  
+        \_/
+     (* *)
+    __)#(__
+   ( )...( )(_)
+   || |_| ||//
+>==() | | ()/
+    _(___)_
+   [-]   [-]MJP
 }
