@@ -12,8 +12,7 @@
 //
 //
 // To Fix:
-// 1) Return to initial input prompt (RPM) in case of error;
-// 2) enable exit option;
+// 1) Fir infinit loop in case of char input to RMP
 // 3) add speed in inched per minute (???);
 // 4) disclose input restrictions;
 //*************************************************************************
@@ -72,46 +71,48 @@ double Robot::getSpeed()
 int main()
 {
     Robot userDefined;
-    double userRPM,
-           userDiameter;
-    char again;
+    double userRPM,                         // User input for Gear Motor Speed.
+           userDiameter;                    // User input for Diameter.
+    char again;                             // Loop control, used to exit program.
     
-    while (again != 'e' || again != 'E')
+    while (again != 'e' && again !='E')
     {
-        cout << "Enter new RPM value: ";
+        cout << "\nEnter new RPM value: ";
         cin >> userRPM;
-    
-        if (userRPM == 74 || userRPM == 190 || userRPM == 265)
+        if (userRPM != 265 && userRPM != 190 && userRPM != 74)
+        {
+            cout << "ERROR! Invalid speed value." << endl;
+        }
+        else
         {
             userDefined.setRPM(userRPM);
-        }
-        else
-        {
-            cout << "ERROR! Invalid speed value. Please, try again." << endl;
-        }
             cout << "Enter new wheel diameter: ";
-        cin >> userDiameter;
-        if (userDiameter >= 1 || userDiameter <= 6 )
-        {
-            userDefined.setDiameter(userDiameter);
+            cin >> userDiameter;
+            if (userDiameter >= 1 && userDiameter <= 6 )
+            {
+                userDefined.setDiameter(userDiameter);
+                cout << "\nHere is the data you intered: " << endl;
+                cout << "Speed of the gear motor: " << userDefined.getRPM() <<
+                        " RPM;" << endl;
+                cout << "Wheel diameter: " << userDefined.getDiameter() <<
+                        " inch(es);" << endl;
+                cout << "Estimated speed of the robot is: " << userDefined.getSpeed() <<
+                        " feet per minute."<< endl;
+            }
+            else
+            {
+                cout << "ERROR! Invalid wheel diameter value." << endl;
+            }
         }
-        else
-        {
-            cout << "ERROR! Invalid wheel diameter value. Please, try again." << endl;
+        cout << "\nEnter any key to try again, e to exit: ";
+        cin >> again;
 
         }
-    
-        cout << "\nHere is the data you intered: " << endl;
-        cout << "Speed of the gear motor: " << userDefined.getRPM() <<
-                " RPM;" << endl;
-        cout << "Wheel diameter: " << userDefined.getDiameter() <<
-        " inch(es);" << endl;
-        cout << "Estimated speed of the robot is: " << userDefined.getSpeed() <<
-                " feet per minute."<< endl;
-        cout << "Enter any key to try again, e to exit: ";
-    }
 
+    cout << " You have exited the program.\n";
     return 0;
+}
+
   
         \_/
      (* *)
@@ -120,5 +121,4 @@ int main()
    || |_| ||//
 >==() | | ()/
     _(___)_
-   [-]   [-]MJP
-}
+   [-]   [-]
