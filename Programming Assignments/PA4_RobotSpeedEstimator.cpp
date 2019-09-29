@@ -12,9 +12,8 @@
 //
 //
 // To Fix:
-// 1) Fir infinit loop in case of char input to RMP
-// 3) add speed in inched per minute (???);
-// 4) disclose input restrictions;
+// 1) Fix infinite loop in case of char input to RMP
+// 3) add speed in inches per minute (???);
 //*************************************************************************
 
 #include <iomanip>
@@ -74,10 +73,17 @@ int main()
     double userRPM,                         // User input for Gear Motor Speed.
            userDiameter;                    // User input for Diameter.
     char again;                             // Loop control, used to exit program.
-    
+  
+  
+    cout << "User Instructions:" << endl;
+    cout << "1) Enter your gear motor speed value first then wheel diameter;" 
+         << "\n2) Available gear motor speed options: 74, 190, and 265;"
+         << "\n3) Available wheel diameter options: from 1 to 6 inches;"
+         << "\n4) Enter 'e' to exit the program.\n"
+        
     while (again != 'e' && again !='E')
     {
-        cout << "\nEnter new RPM value: ";
+        cout << "\nEnter new gear motor speed value: ";
         cin >> userRPM;
         if (userRPM != 265 && userRPM != 190 && userRPM != 74)
         {
@@ -104,7 +110,7 @@ int main()
                 cout << "ERROR! Invalid wheel diameter value." << endl;
             }
         }
-        cout << "\nEnter any key to try again, e to exit: ";
+        cout << "Enter any key to try again, e to exit: ";
         cin >> again;
 
         }
