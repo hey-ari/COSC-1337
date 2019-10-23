@@ -1,133 +1,143 @@
 //*************************************************************************
-//  Payroll Version 1.0
+//  Monkey Food
 //  Programmer: Ariadna Ayala
-//  Completed: 10/13/2019
+//  Completed: 10/21/2019
 //  Status: Completed
 //
-//  This program collects user input for employees' informaton and amount of hours worked,
-//  then it generates a payroll output that displays employees weekly pay based on the
-//  input. Program also prints total Gross and Ner pay of all employees combined.
+//  This program collects user input for amount of food eaten by each one of 3 monkeys
+//  in 7 days, stores the data into  a 2D array. It displays a table of the data collected
+//  and calculates average amout of food eaten, the least and greatest amount of food eaten.
 //*************************************************************************
-
 
 #include <iostream>
 #include <iomanip>
-
+#include <string>
 using namespace std;
 
-struct Employee
-{
-	int emplID,						// Integer holds employee ID value;
-		emplType;					// Integer holds employee type value;
-	double payRate;					// Double variable holds employee pay rate;
-    char emplName[20];				// Variable holds employee name (20 spaces);
+int const NUM_MONKEYS = 3,             // Global constant integer for amount of monkeys assigned to 3;
+          NUM_DAYS = 7;                // Global constant integer of amount of days assigned to 7.
 
-};
-int main()
-{
-	// PART 1: Set constant variables
-    int const MAX_EMPL =4;			// Integer constant indicates max amount of employees;
-    double const INCOME_TAX = 0.15; // Double constant holds income tax value;
+// Function prototypes for five functions to be used.
+void monkeyInput (double[][NUM_DAYS], int const);
+void monkeyTable (double[][NUM_DAYS], int const, double, double, double);
+double monkeyAverage (double[][NUM_DAYS], int const);
+double monkeyLeast (double[][NUM_DAYS], int const);
+double monkeyGreatest(double[][NUM_DAYS], int const);
 
-	
-	
-	// PART 2: Input employee information. Using input validation loops
-	// that display error messages and ask user to try again when invalid
-	// input occured. Using members of structure Employee to store user input.
-	
-    Employee employees[MAX_EMPL];
-    for (int i = 0; i<MAX_EMPL; i=i+1)
+
+// Main function calls all the 5 funtions that collect user input, compose table, and
+// calculate average, least, and greatest food eaten.
+int main ()
+{
+    double monkeyEats[NUM_MONKEYS][NUM_DAYS],   // 2-dementional array to hold amount of food eaten;
+                                                // by monkey one of the monkeys on ne of the days;
+           average,                             // Double variable holds a value of average food eaten;
+           least,                               // Double variable holds a value of least food eaten;
+           greatest;                            // Double variable holds a value of greatest amount of
+                                                // food eaten.
+    
+    // Calling an input function and assigning a respective function to the variables (average, least,
+    // and greatest). Then calling a function that displays the report.
+    monkeyInput (monkeyEats, NUM_MONKEYS);
+    
+    average = monkeyAverage(monkeyEats, NUM_MONKEYS);
+    least = monkeyLeast(monkeyEats, NUM_MONKEYS);
+    greatest = monkeyGreatest(monkeyEats, NUM_MONKEYS);
+    
+    monkeyTable(monkeyEats, NUM_MONKEYS, average, least, greatest);
+    return 0;
+}
+
+
+// Function calculates user input for the amount of food each monkey ate throughout the week.
+void monkeyInput(double array [][NUM_DAYS], int const NUM_MONKEYS)
+{
+
+    for (int i =0; i < NUM_MONKEYS; i=i+1)                 // i for monkey number.
     {
-        cout << "Enter information for employee " << (i+1) << endl;
-		cout << "Employee ID: ";
-		cin >> employees[i].emplID;
-		while (employees[i].emplID <= 0)
-		{
-			cout << "Invalid ID. Try again." << endl;
-			cout << "Emplyee ID: ";
-			cin >> employees[i].emplID;
-		}
-		
-		cin.ignore();
-		cout << "Employee Name: ";
-		cin.getline(employees[i].emplName, 20);
-		
-		cout << "Pay Rate: ";
-		cin >> employees[i].payRate;
-		while (employees[i].payRate<=0)
-		{
-			cout << "Invalid value. Try again." << endl;
-			cout << "Pay Rate: ";
-			cin >> employees[i].payRate;
-		}
-		cin.ignore();
-		cout << " Enter 0 for Union employee, 1 for Management" << endl;
-		cout << "Type: ";
-		cin >> employees[i].emplType;
-		while (employees[i].emplType != 0 && employees[i].emplType != 1)
-		{
-			cout << "Invalid Employee Type. Please try again." << endl;
-			cout << "Type: ";
-			cin >> employees[i].emplType;
-		}
+        for (int j = 0; j < NUM_DAYS; j=j+1)               // j for days number.
+        {
+            cout << "Enter pounds of food eaten by monkey"
+            << (i+1) << " on " << (j+1) << ":";
+            cin >> array[i][j];
+            while (array[i][j] < 0)
+            {
+                cout << "Amount of food cannot be lesser than 0. Try again: " << endl;
+                cin >> array[i][j];
+            }
+        }
     }
-	
-	// PART 3: Payroll loop accepts user input for amount of hours each employee
-	// worked. Input validation loop displays an error message and asks user to
-	// try again when invalis input occured.
-	double hrsWorked[MAX_EMPL],
-		   grossPay[MAX_EMPL],
-		   tax[MAX_EMPL],
-		   netPay[MAX_EMPL];
-	cout << "Enter timecard information for each employee: " << endl;
-	for (int i = 0; i<MAX_EMPL; i=i+1)
-	{
-		cout << "Hours worked for " << employees[i].emplName <<":";
-		cin >>hrsWorked[i];
-		while (hrsWorked[i]<0)
-		{
-			cout << "Invalid amount of hours. Try again." << endl;
-			cout << "Hours worked for " << employees[i].emplName << ":";
-			cin >> hrsWorked[i];
-		}
-	}
-	
-	// PART 4: Processing payroll. Perdorming calculation required to determine
-	// each employee's gross and net pay and adds their values to total gross
-	// and net pay accumulators.
-	double totalGrossPay = 0.0,		// Total gross pay accumulator set to 0.0;
-		   totalNetPay = 0.0;		// Total net pay accumulator set to 0.0
-	
-	cout << fixed << setprecision(2);
-	cout << setw(4) << "ID" << setw(20) << "Name" << setw(14)
-	<< "Gross Pay" << setw(10) << "Tax" << setw(10) << "Net Pay" << endl;
-	for (int i =0; i<MAX_EMPL; i=i+1)
-	{
-		if (hrsWorked[i] <=40 && employees[i].emplType == 0)
-		{
-			grossPay[i] = hrsWorked[i]*employees[i].payRate;
-			totalGrossPay = totalGrossPay + grossPay[i];
-			tax[i] = grossPay[i]*INCOME_TAX;
-			netPay[i] = grossPay[i]-tax[i];
-			totalNetPay = totalNetPay + netPay[i];
-		}
-		else
-		{
-			grossPay[i] = hrsWorked[i]*employees[i].payRate;
-			totalGrossPay = totalGrossPay + grossPay [i];
-			tax[i] = grossPay[i]*INCOME_TAX;
-			netPay[i]=grossPay[i]-tax[i];
-			totalNetPay = totalNetPay + netPay[i];
-		}
-		cout << setw(4)<<employees[i].emplID << setw(20) <<employees[i].emplName
-			 << setw(14) << grossPay[i] << setw(10) << tax[i] << setw(10) << netPay[i]
-			 << endl;
-	}
-	
-	// PART 5: Displaying total Gross and Net pay due for the week.
-	cout << "Total Gross Pay For All Employees Combined: $" << totalGrossPay << endl;
-	cout << "Total Net Pay For All Employees Combined: $" << totalNetPay << endl;
-	
-	
-	return 0;
+}
+
+
+
+// Function composes and displays the table based on data intered into the array followed by
+// the report of an average amount of food eaten in 7 days and both the least and the greatest
+// amount of food eaten.
+void monkeyTable(double array [][NUM_DAYS], int const NUM_MONKEYS, double average, double least, double greatest)
+{
+    cout << fixed << showpoint << setprecision (2);
+    
+    cout << "Punds of food eaten by each monkey every day of the week" << endl;
+    cout << "\n";
+ 
+    cout << "Monkey" << setw(8) << "Mon" << setw(6) << "Tue" << setw(6) << "Wed"
+         << setw(6) << "Thu" << setw(6) << "Fri" << setw(6) << "Sat" << setw(6)
+         << "Sun" << setw(6) << endl;
+    for (int i = 0; i < NUM_MONKEYS; i=i+1)                 // i for monkey number.
+    {
+        cout << left << setw(8) << (i+1);
+        for (int j = 0; j < NUM_DAYS; j=j+1)                // j for days number.
+        {
+            cout << left << setw(6) << array[i][j];
+        }
+        cout << endl;
+    }
+    cout << "\nThe average of food eaten per day by each monkey: " << average << endl;
+    cout << "The least amount of food eaten by any monkey: " << least << endl;
+    cout << "The greatest amount of food eaten by any monkey: " << greatest << endl;
+}
+
+// Function used to calculate the average amount of food eaten by all monkeys in 7 days.
+double monkeyAverage(double array [][NUM_DAYS], int const NUM_MONKEYS)
+{
+    double  average = 0.0,
+            total = 0.0;
+    for (int i = 0; i < NUM_MONKEYS; i=i+1)                 // i for monkey number.
+    {
+        for (int j = 0; j < NUM_DAYS; j=j+1)                // j for days number.
+        {
+            total = total + array[i][j];
+            average = total/(NUM_MONKEYS*NUM_DAYS);
+        }
+    }
+    return average;
+}
+// Function used to determine the least amount of food eaten by any monkey in 7 days.
+double monkeyLeast (double array [][NUM_DAYS], int const NUM_MONKEYS)
+{
+    double least = array[0][0];
+    for (int i = 0; i < NUM_MONKEYS; i++)                   // i for monkey number.
+    {
+        for (int j = 0; j < NUM_DAYS; j++)                  // j for days number.
+        { if (array[i][j] < least)
+            least = array[i][j];
+        }
+    }
+    return least;
+}
+
+// Function used to determine the greatest amount of food eaten by any monkey in 7 days.
+double monkeyGreatest (double array [][NUM_DAYS], int const NUM_MONKEYS)
+{
+    
+    double greatest = array[0][0];
+    for (int i = 0; i < NUM_MONKEYS; i++)                   // i for monkey number.
+    {
+        for (int j = 0; j < NUM_DAYS; j++)                  // j for days number.
+        {   if (array[i][j] > greatest)
+            greatest = array[i][j];
+        }
+    }
+    return greatest;
 }
