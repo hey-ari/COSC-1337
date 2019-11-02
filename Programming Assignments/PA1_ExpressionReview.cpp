@@ -33,6 +33,7 @@ int main()
     
     int sum,                                        // Used to calculate a sum of inputOne and inputTwo.
         product,                                    // Used to calculate a product of inputOne and inputTwo.
+                                                    // Copyright (c) 2019 Ariadna Ayala. All rights reserved.
         intQuot,                                    // Used to calculate a quotient of inputOne and inputTwo (integer).
         intRem;                                     // Used to calculate a remainder of inputOne and inputTwo (integer).
     
@@ -40,22 +41,22 @@ int main()
           average;                                  // Used to calculate an average of inputOne and inputTwo.
     
     // Performing required calsulations:
-    sum = inputOne +inputTwo;                       // Calculate sum of input variables.
-    product = inputOne * inputTwo;                  // Calculate product of input variables.
-    intQuot = inputOne/inputTwo;                    // Calculate quotient (Integer).
-    intRem = inputOne % inputTwo;                   // Calculate remainder (Integer).
-    floatQuot = (float)inputOne/(float)inputTwo;    // Calculate quotient (Floating point).
-    average = sum/2.0;                              // Calculate average.
-    
+    sum = inputOne +inputTwo;                       
+    product = inputOne * inputTwo;                  
+    intQuot = inputOne/inputTwo;          
+    intRem = inputOne % inputTwo;            
+    floatQuot = (float)inputOne/(float)inputTwo;   
+    average = sum/2.0;
     
     // Part 3: Printing calculated sum, product, quotients, remainder, and average.
     
     cout << "For the integers you entered: " << endl;
-    cout << "Sum\t\t\t\t\t\t" << "is "<< sum << endl;                   // Print sum of two integers
-    cout << "Product\t\t\t\t\t" << "is "<< product << endl;             // Print product of two integers.
-    cout << "Integer Qoutient\t\t" << "is "<< intQuot << endl;          // Print result of division as an integer.
-    cout << "Integer remainder\t\t" << "is "<< intRem << endl;          // Print a remainder.
-    cout << "Floating-point qoutient\t" << "is "<< floatQuot << endl;   // Print result for division as a floating point.
-    cout << "Average\t\t\t\t\t" << "is "<< average << endl;             // Print an average of two integers as floating point number.
+    cout << "Sum\t\t\t\t\t\t" << "is "<< sum << endl;                   
+    cout << "Product\t\t\t\t\t" << "is "<< product << endl;         
+    cout << "Integer Qoutient\t\t" << "is "<< intQuot << endl;         
+    cout << "Integer remainder\t\t" << "is "<< intRem << endl;   
+    cout << "Floating-point qoutient\t" << "is "<< floatQuot << endl;  
+    cout << "Average\t\t\t\t\t" << "is "<< average << endl;
+    cout << "\nCopyright (c) 2019 Ariadna Ayala. All rights reserved.";
     return 0;
 }
