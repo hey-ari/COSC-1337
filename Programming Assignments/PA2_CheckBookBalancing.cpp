@@ -41,8 +41,7 @@ int main()
     // a transaction type. The program determines which set of operations to perform and
     // collects user's input for transaction amount. This part will display an error message
     // for invalid input: invalid command type or negative transaction amount. 
-    // Copyright (c) 2019 Ariadna Ayala. All rights reserved.The program will display final 
-    // statement, total fees and ending balance, then it will end.
+    // The program will display final statement, total fees and ending balance, then it will end.
     
     
     while (transacType != 'e' || transacType != 'E')
