@@ -40,8 +40,9 @@ int main()
     // PART 2: Decision making based on user input. This part collects user's input for
     // a transaction type. The program determines which set of operations to perform and
     // collects user's input for transaction amount. This part will display an error message
-    // for invalid input: invalid command type or negative transaction amount. The program
-    // will display final statement, total fees and ending balance, then it will end.
+    // for invalid input: invalid command type or negative transaction amount. 
+    // Copyright (c) 2019 Ariadna Ayala. All rights reserved.The program will display final 
+    // statement, total fees and ending balance, then it will end.
     
     
     while (transacType != 'e' || transacType != 'E')
@@ -102,6 +103,7 @@ int main()
         }
     }
     cout << "\nThank you and have a good day!" << endl;
+    cout << "Copyright (c) 2019 Ariadna Ayala. All rights reserved.";
     return 0;
 }
 
