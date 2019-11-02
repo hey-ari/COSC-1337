@@ -33,7 +33,6 @@ int main()
     
     int sum,                                        // Used to calculate a sum of inputOne and inputTwo.
         product,                                    // Used to calculate a product of inputOne and inputTwo.
-                                                    // Copyright (c) 2019 Ariadna Ayala. All rights reserved.
         intQuot,                                    // Used to calculate a quotient of inputOne and inputTwo (integer).
         intRem;                                     // Used to calculate a remainder of inputOne and inputTwo (integer).
     
